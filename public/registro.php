@@ -1,5 +1,16 @@
 <?php
 require_once __DIR__.'/../vendor/autoload.php';
+use Geeks\controller\Autenticacion as Auth;
+use Geeks\model\Usuario as Usuario;
+
+//Abrimos la sesion
+$a=new Auth();
+//Creamos el usuario
+$u = new Usuario();
+    $error=null;
+    if(isset($_POST["action"])){
+        $error=$u->checkRegisterForm($_POST);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -16,7 +27,7 @@ require_once __DIR__.'/../vendor/autoload.php';
             <div class="col"></div>
             <div class="col-5">
                 <div class="form-group">
-                    <label for="email">Email address</label>
+                    <label for="email">Email</label>
                     <input type="email" class="form-control" name="email" id="email" placeholder="Introduce tu email">
                 </div>
                 <div class="form-group">
@@ -54,11 +65,20 @@ require_once __DIR__.'/../vendor/autoload.php';
                     <input type="password" class="form-control" name="pass2" id="pass2" placeholder="Password">
                 </div>        
                 <input type="hidden" name="action" value="registrar">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Registrar</button>
             </div>
             <div class="col"></div>
         </div>
         </form>
+        <?php
+          if($error!=null){
+        ?>
+        <div class="alert alert-danger" role="alert">
+          <?=$error?>
+        </div>
+        <?php
+          }
+        ?>
     </div>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

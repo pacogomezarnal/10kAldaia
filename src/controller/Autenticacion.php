@@ -8,7 +8,9 @@ class Autenticacion{
 
     function __construct (){
         session_start();
-        if(!isset($_SESSION["id"])&&(basename($_SERVER["REQUEST_URI"])!="index.php")) header('Location: index.php');
+        if(!(basename($_SERVER["REQUEST_URI"])=="index.php"||basename($_SERVER["REQUEST_URI"])=="registro.php")){
+            if(!isset($_SESSION["id"])) header('Location: index.php');
+        }
     }
 
     public function checkLogin($user=null,$pass=null){
